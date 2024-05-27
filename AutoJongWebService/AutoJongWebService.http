@@ -1,0 +1,6 @@
+@AutoJongWebService_HostAddress = http://localhost:5171
+
+GET {{AutoJongWebService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
