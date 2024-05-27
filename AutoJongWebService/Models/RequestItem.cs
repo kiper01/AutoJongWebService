@@ -9,6 +9,7 @@ namespace AutoJongWebService.Models
 
         [Required]
         [MaxLength(12)]
+        [Phone]
         public string Number { get; set; }
 
         [MaxLength(255)]
