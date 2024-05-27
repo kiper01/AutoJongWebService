@@ -10,6 +10,6 @@ namespace AutoJongWebService.Models
         {
         }
 
-        public DbSet<RequestItem> RequestItems { get; set; } = null!;
+        public DbSet<RequestItem> RequestItems { get; set; }
     }
 }

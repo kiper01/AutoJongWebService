@@ -4,14 +4,14 @@ using AutoJongWebService.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<CarContext>(opt =>
-    opt.UseInMemoryDatabase("CarList"));
-
-builder.Services.AddDbContext<RequestContext>(opt =>
-    opt.UseInMemoryDatabase("RequestList"));
+// Configure PostgreSQL database
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<CarContext>(options =>
+    options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<RequestContext>(options =>
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (builder.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
