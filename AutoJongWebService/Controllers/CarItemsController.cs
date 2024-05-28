@@ -20,15 +20,46 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // GET: api/CarItems
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarItem>>> GetCarItems()
+        // POST: api/CarItems/Add
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("Add")]
+        public async Task<ActionResult<CarItem>> PostCarItem(CarItem carItem)
         {
-            return await _context.CarItems.ToListAsync();
+            _context.CarItems.Add(carItem);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(PostCarItem), new { id = carItem.Id }, carItem);
         }
 
-        // GET: api/CarItems/5
-        [HttpGet("{id}")]
+        // GET: api/CarItems/GetAll
+        [HttpGet("GetAll")]
+        public async Task<ActionResult> GetCarItems(int pageNumber = 1, int pageSize = 5)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 5;
+
+            var totalRecords = await _context.CarItems.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            var carItems = await _context.CarItems
+                                         .Skip((pageNumber - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToListAsync();
+
+            var result = new
+            {
+                TotalPages = totalPages,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Items = carItems
+            };
+
+            return Ok(result);
+        }
+
+
+        // GET: api/CarItems/GetById/5
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<CarItem>> GetCarItem(Guid id)
         {
             var carItem = await _context.CarItems.FindAsync(id);
@@ -41,16 +72,11 @@ namespace AutoJongWebService.Controllers
             return carItem;
         }
 
-        // PUT: api/CarItems/5
+        // PUT: api/CarItems/UpdateByID
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCarItem(Guid id, CarItem carItem)
+        [HttpPut("UpdateById")]
+        public async Task<IActionResult> PutCarItem(CarItem carItem)
         {
-            if (id != carItem.Id)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(carItem).State = EntityState.Modified;
 
             try
@@ -59,7 +85,7 @@ namespace AutoJongWebService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CarItemExists(id))
+                if (!CarItemExists(carItem.Id))
                 {
                     return NotFound();
                 }
@@ -72,19 +98,8 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // POST: api/CarItems
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<CarItem>> PostCarItem(CarItem carItem)
-        {
-            _context.CarItems.Add(carItem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(PostCarItem), new { id = carItem.Id }, carItem);
-        }
-
-        // DELETE: api/CarItems/5
-        [HttpDelete("{id}")]
+        // DELETE: api/CarItems/DeleteById/5
+        [HttpDelete("DeleteById/{id}")]
         public async Task<IActionResult> DeleteCarItem(Guid id)
         {
             var carItem = await _context.CarItems.FindAsync(id);

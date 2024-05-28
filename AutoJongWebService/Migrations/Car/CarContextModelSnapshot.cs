@@ -31,8 +31,8 @@ namespace AutoJongWebService.Migrations
                     b.Property<int>("Country")
                         .HasColumnType("integer");
 
-                    b.Property<long>("EndPrice")
-                        .HasColumnType("bigint");
+                    b.Property<double>("EngineVolume")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Fuel")
                         .HasColumnType("integer");
@@ -40,22 +40,15 @@ namespace AutoJongWebService.Migrations
                     b.Property<int>("Gearbox")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<double>("StartEngineVolume")
-                        .HasColumnType("double precision");
-
-                    b.Property<long>("StartPrice")
+                    b.Property<long>("Price")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("StartYear")
+                    b.Property<long>("Year")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");

@@ -17,12 +17,10 @@ namespace AutoJongWebService.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Image = table.Column<string>(type: "text", nullable: false),
-                    StartYear = table.Column<long>(type: "bigint", nullable: false),
-                    StartPrice = table.Column<long>(type: "bigint", nullable: false),
-                    EndPrice = table.Column<long>(type: "bigint", nullable: false),
+                    Year = table.Column<long>(type: "bigint", nullable: false),
+                    Price = table.Column<long>(type: "bigint", nullable: false),
                     Fuel = table.Column<int>(type: "integer", nullable: false),
-                    StartEngineVolume = table.Column<double>(type: "double precision", nullable: false),
+                    EngineVolume = table.Column<double>(type: "double precision", nullable: false),
                     Gearbox = table.Column<int>(type: "integer", nullable: false),
                     Country = table.Column<int>(type: "integer", nullable: false)
                 },
