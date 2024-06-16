@@ -12,6 +12,8 @@ builder.Services.AddDbContext<CarContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddDbContext<RequestContext>(options =>
     options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<ReviewContext>(options =>
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddSwaggerGen(c =>
 {

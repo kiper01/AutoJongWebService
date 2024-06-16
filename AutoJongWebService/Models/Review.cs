@@ -11,11 +11,11 @@ namespace AutoJongWebService.Models
 
         [Required]
         [MinLength(2)]
-        public string Login { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        [MinLength(8)]
-        public string Password { get; set; }
+        [MinLength(10)]
+        public string Text { get; set; }
 
         public ReviewItem()
         {
