@@ -22,6 +22,10 @@ namespace AutoJongWebService.Models
         public uint Price { get; set; }
 
         [Required]
+        [EnumDataType(typeof(BodyType))]
+        public BodyType Body { get; set; }
+
+        [Required]
         [EnumDataType(typeof(FuelType))]
         public FuelType Fuel { get; set; }
 
@@ -62,6 +66,15 @@ namespace AutoJongWebService.Models
             Japan,
             Korea,
             China
+        }
+
+        public enum BodyType
+        {
+            Sedan,
+            Wagon,
+            Suv,
+            Minivan,
+            Hatchback
         }
     }
 }
