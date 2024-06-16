@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoJongWebService.Migrations.Request
 {
     [DbContext(typeof(RequestContext))]
-    [Migration("20240527170523_InitialCreate")]
+    [Migration("20240616121650_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace AutoJongWebService.Migrations.Request
                         .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("character varying(12)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoJongWebService.Migrations
 {
     [DbContext(typeof(CarContext))]
-    [Migration("20240528152407_InitialCreate")]
+    [Migration("20240616121634_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,6 +30,9 @@ namespace AutoJongWebService.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<int>("Body")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Country")
                         .HasColumnType("integer");

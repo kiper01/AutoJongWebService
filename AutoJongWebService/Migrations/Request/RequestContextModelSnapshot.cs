@@ -38,6 +38,9 @@ namespace AutoJongWebService.Migrations.Request
                         .HasMaxLength(12)
                         .HasColumnType("character varying(12)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Request");

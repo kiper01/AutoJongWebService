@@ -19,6 +19,7 @@ namespace AutoJongWebService.Migrations
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Year = table.Column<long>(type: "bigint", nullable: false),
                     Price = table.Column<long>(type: "bigint", nullable: false),
+                    Body = table.Column<int>(type: "integer", nullable: false),
                     Fuel = table.Column<int>(type: "integer", nullable: false),
                     EngineVolume = table.Column<double>(type: "double precision", nullable: false),
                     Gearbox = table.Column<int>(type: "integer", nullable: false),

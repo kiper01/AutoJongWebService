@@ -17,7 +17,8 @@ namespace AutoJongWebService.Migrations.Request
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Number = table.Column<string>(type: "character varying(12)", maxLength: 12, nullable: false),
-                    Model = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
+                    Model = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

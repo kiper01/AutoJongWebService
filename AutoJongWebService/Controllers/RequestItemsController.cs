@@ -20,15 +20,45 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // GET: api/RequestItems
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RequestItem>>> GetRequestItems()
+        // POST: api/RequestItems/Add
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("Add")]
+        public async Task<ActionResult<RequestItem>> PostRequestItem(RequestItem requestItem)
         {
-            return await _context.RequestItems.ToListAsync();
+            _context.RequestItems.Add(requestItem);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(PostRequestItem), new { id = requestItem.Id }, requestItem);
         }
 
-        // GET: api/RequestItems/5
-        [HttpGet("{id}")]
+        // GET: api/RequestItems/GetAll
+        [HttpGet("GetAll")]
+        public async Task<ActionResult> GetRequestItems(int pageNumber = 1, int pageSize = 5)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 5;
+
+            var totalRecords = await _context.RequestItems.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            var requestItems = await _context.RequestItems
+                                             .Skip((pageNumber - 1) * pageSize)
+                                             .Take(pageSize)
+                                             .ToListAsync();
+
+            var result = new
+            {
+                TotalPages = totalPages,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Items = requestItems
+            };
+
+            return Ok(result);
+        }
+
+        // GET: api/RequestItems/GetById/5
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<RequestItem>> GetRequestItem(Guid id)
         {
             var requestItem = await _context.RequestItems.FindAsync(id);
@@ -41,9 +71,9 @@ namespace AutoJongWebService.Controllers
             return requestItem;
         }
 
-        // PUT: api/RequestItems/5
+        // PUT: api/RequestItems/Update/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("Update/{id}")]
         public async Task<IActionResult> PutRequestItem(Guid id, RequestItem requestItem)
         {
             if (id != requestItem.Id)
@@ -72,19 +102,8 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // POST: api/RequestItems
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<RequestItem>> PostRequestItem(RequestItem requestItem)
-        {
-            _context.RequestItems.Add(requestItem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(PostRequestItem), new { id = requestItem.Id }, requestItem);
-        }
-
-        // DELETE: api/RequestItems/5
-        [HttpDelete("{id}")]
+        // DELETE: api/RequestItems/DeleteById/5
+        [HttpDelete("DeleteById/{id}")]
         public async Task<IActionResult> DeleteRequestItem(Guid id)
         {
             var requestItem = await _context.RequestItems.FindAsync(id);

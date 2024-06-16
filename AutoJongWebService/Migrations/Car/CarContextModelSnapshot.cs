@@ -28,6 +28,9 @@ namespace AutoJongWebService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Body")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Country")
                         .HasColumnType("integer");
 
