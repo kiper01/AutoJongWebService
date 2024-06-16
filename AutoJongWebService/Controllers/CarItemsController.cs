@@ -74,7 +74,7 @@ namespace AutoJongWebService.Controllers
 
         // PUT: api/CarItems/UpdateByID
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("UpdateById")]
+        [HttpPut("Update")]
         public async Task<IActionResult> PutCarItem(CarItem carItem)
         {
             _context.Entry(carItem).State = EntityState.Modified;

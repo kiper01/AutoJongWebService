@@ -73,14 +73,9 @@ namespace AutoJongWebService.Controllers
 
         // PUT: api/RequestItems/Update/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Update/{id}")]
-        public async Task<IActionResult> PutRequestItem(Guid id, RequestItem requestItem)
+        [HttpPut("Update")]
+        public async Task<IActionResult> PutRequestItem(RequestItem requestItem)
         {
-            if (id != requestItem.Id)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(requestItem).State = EntityState.Modified;
 
             try
@@ -89,7 +84,7 @@ namespace AutoJongWebService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RequestItemExists(id))
+                if (!RequestItemExists(requestItem.Id))
                 {
                     return NotFound();
                 }
