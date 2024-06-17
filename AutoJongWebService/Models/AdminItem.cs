@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AutoJongWebService.Models
+namespace AutoJongWebService
 {
     [Table("Admins")]
     public class AdminItem
@@ -11,15 +11,24 @@ namespace AutoJongWebService.Models
 
         [Required]
         [MinLength(2)]
-        public string Login { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [MinLength(8)]
         public string Password { get; set; }
 
+        [Required]
+        [EnumDataType(typeof(RoleType))]
+        public RoleType Role { get; set; }
+
         public AdminItem()
         {
             Id = Guid.NewGuid();
+        }
+        public enum RoleType
+        {
+            SuperAdmin,
+            Admin
         }
     }
 }

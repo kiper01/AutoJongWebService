@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoJongWebService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutoJongWebService.Controllers
 {
@@ -13,16 +9,16 @@ namespace AutoJongWebService.Controllers
     [ApiController]
     public class CarItemsController : ControllerBase
     {
-        private readonly CarContext _context;
+        private readonly AppDbContext _context;
 
-        public CarItemsController(CarContext context)
+        public CarItemsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // POST: api/CarItems/Add
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("Add")]
+        // POST: api/CarItems/AddNewCar
+        [HttpPost("AddNewCar")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<CarItem>> PostCarItem(CarItem carItem)
         {
             _context.CarItems.Add(carItem);
@@ -31,8 +27,9 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostCarItem), new { id = carItem.Id }, carItem);
         }
 
-        // GET: api/CarItems/GetAll
-        [HttpGet("GetAll")]
+        // GET: api/CarItems/GetAllCars
+        [HttpGet("GetAllCars")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult> GetCarItems(int pageNumber = 1, int pageSize = 5)
         {
             if (pageNumber < 1) pageNumber = 1;
@@ -58,8 +55,8 @@ namespace AutoJongWebService.Controllers
         }
 
 
-        // GET: api/CarItems/GetById/5
-        [HttpGet("GetById/{id}")]
+        // GET: api/CarItems/GetCarById/5
+        [HttpGet("GetCarById/{id}")]
         public async Task<ActionResult<CarItem>> GetCarItem(Guid id)
         {
             var carItem = await _context.CarItems.FindAsync(id);
@@ -72,9 +69,9 @@ namespace AutoJongWebService.Controllers
             return carItem;
         }
 
-        // PUT: api/CarItems/UpdateByID
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Update")]
+        // PUT: api/CarItems/UpdateCar
+        [HttpPut("UpdateCar")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> PutCarItem(CarItem carItem)
         {
             _context.Entry(carItem).State = EntityState.Modified;
@@ -98,8 +95,9 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // DELETE: api/CarItems/DeleteById/5
-        [HttpDelete("DeleteById/{id}")]
+        // DELETE: api/CarItems/DeleteCarById/5
+        [HttpDelete("DeleteCarById/{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteCarItem(Guid id)
         {
             var carItem = await _context.CarItems.FindAsync(id);

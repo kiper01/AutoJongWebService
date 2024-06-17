@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoJongWebService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutoJongWebService.Controllers
 {
@@ -13,16 +9,15 @@ namespace AutoJongWebService.Controllers
     [ApiController]
     public class RequestItemsController : ControllerBase
     {
-        private readonly RequestContext _context;
+        private readonly AppDbContext _context;
 
-        public RequestItemsController(RequestContext context)
+        public RequestItemsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // POST: api/RequestItems/Add
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("Add")]
+        // POST: api/RequestItems/AddNewRequest
+        [HttpPost("AddNewRequest")]
         public async Task<ActionResult<RequestItem>> PostRequestItem(RequestItem requestItem)
         {
             _context.RequestItems.Add(requestItem);
@@ -31,8 +26,9 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostRequestItem), new { id = requestItem.Id }, requestItem);
         }
 
-        // GET: api/RequestItems/GetAll
-        [HttpGet("GetAll")]
+        // GET: api/RequestItems/GetAllRequests
+        [HttpGet("GetAllRequests")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult> GetRequestItems(int pageNumber = 1, int pageSize = 5)
         {
             if (pageNumber < 1) pageNumber = 1;
@@ -57,8 +53,9 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-        // GET: api/RequestItems/GetById/5
-        [HttpGet("GetById/{id}")]
+        // GET: api/RequestItems/GetRequestById/5
+        [HttpGet("GetRequestById/{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<RequestItem>> GetRequestItem(Guid id)
         {
             var requestItem = await _context.RequestItems.FindAsync(id);
@@ -71,9 +68,9 @@ namespace AutoJongWebService.Controllers
             return requestItem;
         }
 
-        // PUT: api/RequestItems/Update/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Update")]
+        // PUT: api/RequestItems/UpdateRequest
+        [HttpPut("UpdateRequest")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> PutRequestItem(RequestItem requestItem)
         {
             _context.Entry(requestItem).State = EntityState.Modified;
@@ -97,8 +94,9 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // DELETE: api/RequestItems/DeleteById/5
-        [HttpDelete("DeleteById/{id}")]
+        // DELETE: api/RequestItems/DeleteRequestById/5
+        [HttpDelete("DeleteRequestById/{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteRequestItem(Guid id)
         {
             var requestItem = await _context.RequestItems.FindAsync(id);
