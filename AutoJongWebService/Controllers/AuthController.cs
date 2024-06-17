@@ -47,7 +47,6 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("Logout")]
-    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -16,8 +16,8 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // POST: api/RequestItems/AddNewRequest
-        [HttpPost("AddNewRequest")]
+        // POST: api/RequestItems
+        [HttpPost()]
         public async Task<ActionResult<RequestItem>> PostRequestItem(RequestItem requestItem)
         {
             _context.RequestItems.Add(requestItem);
@@ -26,8 +26,8 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostRequestItem), new { id = requestItem.Id }, requestItem);
         }
 
-        // GET: api/RequestItems/GetAllRequests
-        [HttpGet("GetAllRequests")]
+        // GET: api/RequestItems
+        [HttpGet()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult> GetRequestItems(int pageNumber = 1, int pageSize = 5)
         {
@@ -53,8 +53,8 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-        // GET: api/RequestItems/GetRequestById/5
-        [HttpGet("GetRequestById/{id}")]
+        // GET: api/RequestItems/5
+        [HttpGet("{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<RequestItem>> GetRequestItem(Guid id)
         {
@@ -68,8 +68,8 @@ namespace AutoJongWebService.Controllers
             return requestItem;
         }
 
-        // PUT: api/RequestItems/UpdateRequest
-        [HttpPut("UpdateRequest")]
+        // PUT: api/RequestItems
+        [HttpPut()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> PutRequestItem(RequestItem requestItem)
         {
@@ -94,8 +94,8 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // DELETE: api/RequestItems/DeleteRequestById/5
-        [HttpDelete("DeleteRequestById/{id}")]
+        // DELETE: api/RequestItems/5
+        [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteRequestItem(Guid id)
         {

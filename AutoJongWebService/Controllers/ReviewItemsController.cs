@@ -16,8 +16,8 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // POST: api/ReviewItems/AddReview
-        [HttpPost("AddReview")]
+        // POST: api/ReviewItems
+        [HttpPost()]
         public async Task<ActionResult<ReviewItem>> PostReviewItem(ReviewItem reviewItem)
         {
             _context.ReviewItems.Add(reviewItem);
@@ -26,8 +26,8 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostReviewItem), new { id = reviewItem.Id }, reviewItem);
         }
 
-        // GET: api/ReviewItems/GetAllReviews
-        [HttpGet("GetAllReviews")]
+        // GET: api/ReviewItems
+        [HttpGet()]
         public async Task<ActionResult> GetReviewItems(int pageNumber = 1, int pageSize = 5)
         {
             if (pageNumber < 1) pageNumber = 1;
@@ -52,8 +52,8 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-        // GET: api/ReviewItems/GetReviewById/5
-        [HttpGet("GetReviewById/{id}")]
+        // GET: api/ReviewItems/5
+        [HttpGet("{id}")]
         public async Task<ActionResult<ReviewItem>> GetReviewItem(Guid id)
         {
             var reviewItem = await _context.ReviewItems.FindAsync(id);
@@ -66,8 +66,8 @@ namespace AutoJongWebService.Controllers
             return reviewItem;
         }
 
-        // DELETE: api/ReviewItems/DeleteReviewById/5
-        [HttpDelete("DeleteReviewByID/{id}")]
+        // DELETE: api/ReviewItems/5
+        [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteReviewItem(Guid id)
         {

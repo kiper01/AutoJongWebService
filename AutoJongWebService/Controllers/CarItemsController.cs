@@ -16,8 +16,8 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // POST: api/CarItems/AddNewCar
-        [HttpPost("AddNewCar")]
+        // POST: api/CarItems
+        [HttpPost()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<CarItem>> PostCarItem(CarItem carItem)
         {
@@ -27,8 +27,8 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostCarItem), new { id = carItem.Id }, carItem);
         }
 
-        // GET: api/CarItems/GetAllCars
-        [HttpGet("GetAllCars")]
+        // GET: api/CarItems
+        [HttpGet()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult> GetCarItems(int pageNumber = 1, int pageSize = 5)
         {
@@ -55,8 +55,8 @@ namespace AutoJongWebService.Controllers
         }
 
 
-        // GET: api/CarItems/GetCarById/5
-        [HttpGet("GetCarById/{id}")]
+        // GET: api/CarItems/5
+        [HttpGet("{id}")]
         public async Task<ActionResult<CarItem>> GetCarItem(Guid id)
         {
             var carItem = await _context.CarItems.FindAsync(id);
@@ -69,8 +69,8 @@ namespace AutoJongWebService.Controllers
             return carItem;
         }
 
-        // PUT: api/CarItems/UpdateCar
-        [HttpPut("UpdateCar")]
+        // PUT: api/CarItems
+        [HttpPut()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> PutCarItem(CarItem carItem)
         {
@@ -95,8 +95,8 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // DELETE: api/CarItems/DeleteCarById/5
-        [HttpDelete("DeleteCarById/{id}")]
+        // DELETE: api/CarItems/5
+        [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteCarItem(Guid id)
         {
