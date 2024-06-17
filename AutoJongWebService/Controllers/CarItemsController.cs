@@ -54,7 +54,6 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-
         // GET: api/CarItems/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CarItem>> GetCarItem(Guid id)
@@ -112,9 +111,33 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
+        // Мб проверку значений надо добавить
+        // POST: api/CarItems/Quiz
+        [HttpPost("Quiz")]
+        public async Task<ActionResult> GetCarItemsByQuiz(QuizModel quiz)
+        {
+            var carItems = await _context.CarItems
+                                         .ApplyQuizFilter(quiz)
+                                         .ToListAsync();
+
+            return Ok(carItems);
+        }
+
         private bool CarItemExists(Guid id)
         {
             return _context.CarItems.Any(e => e.Id == id);
         }
     }
+}
+
+public class QuizModel
+{
+    public uint YearFrom { get; set; }
+    public uint YearTo { get; set; }
+    public uint PriceFrom { get; set; }
+    public uint PriceTo { get; set; }
+    public CarItem.FuelType FuelType { get; set; }
+    public CarItem.CountryType CountryType { get; set; }
+    public CarItem.BodyType BodyType { get; set; }
+    public CarItem.GearboxType GearboxType { get; set; }
 }
