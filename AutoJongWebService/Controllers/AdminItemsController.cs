@@ -17,7 +17,9 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // POST: api/AdminItems
+        /// <summary>
+        /// Добавление нового аккаунта администратора. #SuperAdmin
+        /// </summary>
         [HttpPost()]
         public async Task<ActionResult<AdminItem>> PostAdminItem(AdminItem adminItem)
         {
@@ -27,7 +29,9 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostAdminItem), new { id = adminItem.Id }, adminItem);
         }
 
-        // GET: api/AdminItems
+        /// <summary>
+        /// Получение всех администраторов (постранично). #SuperAdmin
+        /// </summary>
         [HttpGet()]
         public async Task<ActionResult> GetAdminItems(int pageNumber = 1, int pageSize = 5)
         {
@@ -53,7 +57,9 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-        // GET: api/AdminItems/5
+        /// <summary>
+        /// Получение администратора по id. #SuperAdmin
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<AdminItem>> GetAdminItem(Guid id)
         {
@@ -67,7 +73,9 @@ namespace AutoJongWebService.Controllers
             return adminItem;
         }
 
-        // PUT: api/AdminItems
+        /// <summary>
+        /// Обновление данных администратора. #SuperAdmin
+        /// </summary>
         [HttpPut()]
         public async Task<IActionResult> PutAdminItem(AdminItem adminItem)
         {
@@ -92,7 +100,9 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // DELETE: api/AdminItems/5
+        /// <summary>
+        /// Удаление администратора по id. #SuperAdmin
+        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAdminItem(Guid id)
         {

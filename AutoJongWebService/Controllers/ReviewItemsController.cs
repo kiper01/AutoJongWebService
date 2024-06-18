@@ -16,7 +16,9 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // POST: api/ReviewItems
+        /// <summary>
+        /// Добавление нового отзыва.
+        /// </summary>
         [HttpPost()]
         public async Task<ActionResult<ReviewItem>> PostReviewItem(ReviewItem reviewItem)
         {
@@ -26,7 +28,9 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostReviewItem), new { id = reviewItem.Id }, reviewItem);
         }
 
-        // GET: api/ReviewItems
+        /// <summary>
+        /// Получение всех отзывов (постранично).
+        /// </summary>
         [HttpGet()]
         public async Task<ActionResult> GetReviewItems(int pageNumber = 1, int pageSize = 5)
         {
@@ -52,7 +56,9 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-        // GET: api/ReviewItems/5
+        /// <summary>
+        /// Получение отзыва по id.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<ReviewItem>> GetReviewItem(Guid id)
         {
@@ -66,7 +72,9 @@ namespace AutoJongWebService.Controllers
             return reviewItem;
         }
 
-        // DELETE: api/ReviewItems/5
+        /// <summary>
+        /// Удаление отзыва по id. #Admin
+        /// </summary>
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteReviewItem(Guid id)

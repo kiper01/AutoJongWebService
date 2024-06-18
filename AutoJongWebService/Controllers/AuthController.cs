@@ -17,6 +17,9 @@ public class AuthController : ControllerBase
         _context = context;
     }
 
+    /// <summary>
+    /// Авторизация (только для администраторов).
+    /// </summary>
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
@@ -46,6 +49,9 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Деавторизация.
+    /// </summary>
     [HttpPost("Logout")]
     public async Task<IActionResult> Logout()
     {

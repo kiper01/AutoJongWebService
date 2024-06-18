@@ -16,7 +16,9 @@ namespace AutoJongWebService.Controllers
             _context = context;
         }
 
-        // POST: api/CarItems
+        /// <summary>
+        /// Добавление новой машины. #Admin
+        /// </summary>
         [HttpPost()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<CarItem>> PostCarItem(CarItem carItem)
@@ -27,7 +29,9 @@ namespace AutoJongWebService.Controllers
             return CreatedAtAction(nameof(PostCarItem), new { id = carItem.Id }, carItem);
         }
 
-        // GET: api/CarItems
+        /// <summary>
+        /// Получение всех машин (постарнично). #Admin
+        /// </summary>
         [HttpGet()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult> GetCarItems(int pageNumber = 1, int pageSize = 5)
@@ -54,8 +58,11 @@ namespace AutoJongWebService.Controllers
             return Ok(result);
         }
 
-        // GET: api/CarItems/5
+        /// <summary>
+        /// Получение машины по id. #Admin
+        /// </summary>
         [HttpGet("{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<CarItem>> GetCarItem(Guid id)
         {
             var carItem = await _context.CarItems.FindAsync(id);
@@ -68,7 +75,9 @@ namespace AutoJongWebService.Controllers
             return carItem;
         }
 
-        // PUT: api/CarItems
+        /// <summary>
+        /// Обновление данных машины. #Admin
+        /// </summary>
         [HttpPut()]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> PutCarItem(CarItem carItem)
@@ -94,7 +103,9 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // DELETE: api/CarItems/5
+        /// <summary>
+        /// Удаление машины по id. #Admin
+        /// </summary>
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteCarItem(Guid id)
@@ -111,8 +122,9 @@ namespace AutoJongWebService.Controllers
             return NoContent();
         }
 
-        // Мб проверку значений надо добавить
-        // POST: api/CarItems/Quiz
+        /// <summary>
+        /// Получение списка машин, удолетворяющих условию теста.
+        /// </summary>
         [HttpPost("Quiz")]
         public async Task<ActionResult> GetCarItemsByQuiz(QuizModel quiz)
         {
