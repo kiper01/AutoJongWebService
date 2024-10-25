@@ -1,0 +1,35 @@
+body {
+  width: 100vw;
+  height: 500vh;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(180deg, rgb(25, 25, 25), rgb(70, 70, 70));
+}
+
+.text-sub-headline{
+  font-family: Stengazeta, serif;
+  font-size: 32px;
+  color: rgba(200, 200, 200, 0.5);
+  margin: 0;
+}
+
+.text-headline-red{
+  font-family: Wadik, serif;
+  font-size: 64px;
+  color: #FF4848;
+  margin: 0;
+  line-height: 58px;
+}
+
+.text-headline-white{
+  font-family: Wadik, serif;
+  font-size: 64px;
+  color: #efefef;
+  margin: 0;
+  line-height: 58px;
+}
+
+
+
+

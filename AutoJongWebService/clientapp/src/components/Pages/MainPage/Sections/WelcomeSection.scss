@@ -1,0 +1,49 @@
+﻿.welcome-section {
+  width: 100vw;
+  height: 200vh;
+  flex-direction: row;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.welcome-section-content-wrapper{
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.big-car-wrapper {
+  height: 100%;
+  width: 30%;
+  display: flex;
+}
+
+.big-car {
+  position: fixed;
+  transform-origin: right;
+  right: 47%;
+  margin-top: -30em;
+  display: flex;
+}
+
+.text-wrapper {
+  height: 100%;
+  flex-direction: column;
+  flex: none;
+  justify-content: start;
+  align-items: center;
+  display: flex;
+  
+  width: 35em;
+  margin-left: 25em;
+}
+
+.text-container {
+  height: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
